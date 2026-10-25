@@ -15,8 +15,8 @@
             --border: rgba(255, 255, 255, 0.06);
             --border-accent: rgba(99, 102, 241, 0.3);
             --text-primary: #f0f0f5;
-            --text-secondary: #7a7a8e;
-            --text-muted: #4a4a5c;
+            --text-secondary: #9a9aae;
+            --text-muted: #6e6e85;
             --accent: #6366f1;
             --accent-glow: rgba(99, 102, 241, 0.15);
             --accent2: #8b5cf6;
@@ -49,7 +49,7 @@
             --border-accent: rgba(99, 102, 241, 0.2);
             --text-primary: #1a1a2e;
             --text-secondary: #6b7280;
-            --text-muted: #9ca3af;
+            --text-muted: #8b90a2;
             --accent-glow: rgba(99, 102, 241, 0.08);
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
             --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.08);
@@ -335,76 +335,113 @@
         /* ── DASHBOARD PANEL ── */
         #panel-dashboard th { cursor: default; }
         #panel-dashboard th:hover { color: var(--text-muted); }
-        .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px; }
-        .dash-card {
-            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
-            padding: 22px; position: relative; overflow: hidden; transition: all 0.3s;
+        #panel-dashboard .card { box-shadow: var(--shadow-sm); border-radius: var(--radius-lg); }
+
+        /* Hero */
+        .dash-hero {
+            display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap;
+            padding: 22px 24px; margin: 6px 0 18px; border-radius: var(--radius-xl);
+            border: 1px solid var(--border-accent); position: relative; overflow: hidden;
+            background: radial-gradient(120% 140% at 0% 0%, rgba(99,102,241,0.16), transparent 55%),
+                        radial-gradient(90% 120% at 100% 100%, rgba(139,92,246,0.12), transparent 60%), var(--bg-card);
         }
-        .dash-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--border-accent); }
-        .dash-card .dc-label { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-        .dash-card .dc-value { font-size: 28px; font-weight: 900; letter-spacing: -1px; line-height: 1.2; font-family: 'JetBrains Mono', monospace; }
+        .dash-hero-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--accent); }
+        .dash-hero-title { font-size: 24px; font-weight: 900; letter-spacing: -0.6px; line-height: 1.2; margin: 4px 0 6px; }
+        .dash-hero-sub { font-size: 12px; color: var(--text-secondary); display: flex; gap: 6px 14px; flex-wrap: wrap; }
+        .dash-hero-sub b { color: var(--text-primary); font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+        .dash-hero-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .hero-btn {
+            padding: 9px 14px; border-radius: var(--radius-md); font-size: 11px; font-weight: 700; cursor: pointer;
+            border: 1px solid var(--border-accent); background: var(--bg-secondary); color: var(--accent);
+            transition: all 0.2s; font-family: inherit;
+        }
+        .hero-btn:hover { background: var(--accent); color: #fff; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(99,102,241,0.3); }
+        .hero-btn.primary { background: var(--accent); color: #fff; }
+
+        /* KPI cards */
+        .dash-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+        .dash-card {
+            --tone: var(--accent);
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+            padding: 18px 20px; position: relative; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+            box-shadow: var(--shadow-sm);
+        }
+        .dash-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--border-accent); }
+        .dc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .dc-icon {
+            width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; font-size: 14px;
+            display: flex; align-items: center; justify-content: center;
+            background: color-mix(in srgb, var(--tone) 14%, transparent);
+        }
+        .dash-card .dc-label { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .dash-card .dc-value { font-size: 28px; font-weight: 800; letter-spacing: -1px; line-height: 1.15; font-family: 'JetBrains Mono', monospace; }
         .dash-card .dc-sub { font-size: 11px; color: var(--text-secondary); margin-top: 6px; font-weight: 500; }
-        .dash-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-        .dash-card:nth-child(1)::before { background: var(--gradient-1); }
-        .dash-card:nth-child(2)::before { background: var(--gradient-2); }
-        .dash-card:nth-child(3)::before { background: linear-gradient(135deg, #f59e0b, #f97316); }
-        .dash-card:nth-child(4)::before { background: var(--gradient-4); }
-        .dash-card:nth-child(5)::before { background: linear-gradient(135deg, #14b8a6, #06b6d4); }
-        .dash-card:nth-child(6)::before { background: linear-gradient(135deg, #ec4899, #f43f5e); }
-        .dash-card:nth-child(7)::before { background: linear-gradient(135deg, #a855f7, #6366f1); }
-        .dash-card:nth-child(8)::before { background: linear-gradient(135deg, #22c55e, #14b8a6); }
 
         .dash-donut-wrap { display: flex; align-items: center; gap: 16px; }
         .dash-donut {
-            width: 72px; height: 72px; border-radius: 50%; flex-shrink: 0;
+            width: 66px; height: 66px; border-radius: 50%; flex-shrink: 0;
             display: flex; align-items: center; justify-content: center;
-            transition: transform 0.3s;
         }
-        .dash-donut:hover { transform: scale(1.08); }
         .dash-donut-hole {
-            width: 48px; height: 48px; border-radius: 50%; background: var(--bg-card);
+            width: 48px; height: 48px; border-radius: 50%; background: var(--bg-secondary);
             display: flex; align-items: center; justify-content: center;
-            font-weight: 900; font-size: 13px; font-family: 'JetBrains Mono', monospace;
+            font-weight: 800; font-size: 12px; font-family: 'JetBrains Mono', monospace;
         }
+        .donut-legend { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--text-secondary); }
+        .donut-legend b { font-family: 'JetBrains Mono', monospace; color: var(--text-primary); }
+        .donut-legend i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; }
 
-        .dash-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
-        .dash-cmp-card {
-            background: var(--bg-card); border-radius: var(--radius-lg); padding: 20px;
-            border: 1px solid var(--border); transition: all 0.3s;
-        }
-        .dash-cmp-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-        .dash-cmp-card.best { border-left: 3px solid var(--success); }
-        .dash-cmp-card.worst { border-left: 3px solid var(--danger); }
-        .dash-cmp-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
-        .dash-cmp-card.best .dash-cmp-title { color: var(--success); }
-        .dash-cmp-card.worst .dash-cmp-title { color: var(--danger); }
-        .dash-cmp-sym { font-family: 'JetBrains Mono', monospace; font-weight: 800; color: var(--accent); font-size: 14px; }
-        .dash-cmp-pct { font-family: 'JetBrains Mono', monospace; font-weight: 900; font-size: 22px; margin: 6px 0; }
-
-        .dash-streaks { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
-        .dash-streak-card {
+        /* Highlights: best / worst trade + streaks */
+        .dash-highlights { display: grid; grid-template-columns: 1.4fr 1.4fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+        .hl-card {
             background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
-            padding: 18px; display: flex; align-items: center; gap: 14px; transition: all 0.3s;
+            padding: 16px 18px; box-shadow: var(--shadow-sm); transition: transform 0.25s, box-shadow 0.25s; min-width: 0;
         }
-        .dash-streak-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-        .dash-streak-icon { font-size: 28px; }
-        .dash-streak-val { font-size: 26px; font-weight: 900; font-family: 'JetBrains Mono', monospace; }
-        .dash-streak-label { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .hl-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .hl-card.good { background: linear-gradient(180deg, var(--success-bg), transparent 70%), var(--bg-card); border-color: rgba(34,197,94,0.25); }
+        .hl-card.bad { background: linear-gradient(180deg, var(--danger-bg), transparent 70%), var(--bg-card); border-color: rgba(239,68,68,0.25); }
+        .hl-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 8px; }
+        .hl-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+        .hl-value { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 24px; letter-spacing: -0.5px; line-height: 1.1; }
+        .hl-sym { font-family: 'JetBrains Mono', monospace; font-weight: 800; color: var(--accent); font-size: 13px; }
+        .hl-meta { font-size: 11px; color: var(--text-secondary); margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .hl-dates { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
 
-        .dash-dist { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; }
-        .dash-dist-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 14px; }
-        .dash-dist-bar { display: flex; height: 28px; border-radius: 8px; overflow: hidden; margin-bottom: 14px; }
-        .dash-dist-seg { transition: width 0.8s ease-out; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: white; min-width: 2px; }
-        .dash-dist-legend { display: flex; flex-wrap: wrap; gap: 14px; }
-        .dash-dist-item { display: flex; align-items: center; gap: 6px; font-size: 11px; }
-        .dash-dist-dot { width: 10px; height: 10px; border-radius: 3px; }
-        .dash-dist-count { font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+        /* Distribution */
+        .dash-dist { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; margin-bottom: 8px; box-shadow: var(--shadow-sm); }
+        .dash-dist-title { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 12px; display: flex; justify-content: space-between; }
+        .dash-dist-bar { display: flex; gap: 3px; height: 26px; margin-bottom: 14px; }
+        .dash-dist-seg { transition: width 0.8s ease-out; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: white; min-width: 3px; border-radius: 6px; overflow: hidden; font-family: 'JetBrains Mono', monospace; }
+        .dash-dist-legend { display: flex; flex-wrap: wrap; gap: 8px; }
+        .dash-dist-item { display: flex; align-items: center; gap: 7px; font-size: 11px; padding: 5px 10px; border-radius: 20px; background: var(--accent-glow); border: 1px solid var(--border); color: var(--text-secondary); }
+        .dash-dist-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .dash-dist-count { font-weight: 800; font-family: 'JetBrains Mono', monospace; color: var(--text-primary); }
 
-        .dash-section-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin: 24px 0 12px; display: flex; align-items: center; gap: 8px; }
+        /* Section titles */
+        .dash-section-title {
+            font-size: 13px; font-weight: 800; letter-spacing: -0.1px; color: var(--text-primary);
+            margin: 30px 0 12px; display: flex; align-items: center; gap: 10px;
+        }
+        .dash-section-title small { font-size: 11px; font-weight: 500; color: var(--text-muted); }
+        .dash-section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-        .dash-tables { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+        .dash-card-head {
+            padding: 12px 16px; font-weight: 800; font-size: 12px; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center; gap: 8px;
+        }
+        .dash-card-head small { font-size: 10px; color: var(--text-muted); font-weight: 600; }
+        .rank-chip {
+            display: inline-flex; width: 22px; height: 22px; border-radius: 7px; align-items: center; justify-content: center;
+            background: var(--accent-glow); color: var(--accent); font-weight: 800; font-size: 11px; font-family: 'JetBrains Mono', monospace;
+        }
+        .mini-stat { display: flex; align-items: center; gap: 8px; }
+        .mini-stat .price { min-width: 62px; }
+        .mini-bar { height: 5px; width: 60px; border-radius: 4px; background: rgba(255,255,255,0.06); overflow: hidden; }
+        [data-theme="light"] .mini-bar { background: rgba(0,0,0,0.06); }
+        .mini-bar > div { height: 100%; border-radius: 4px; }
 
-        .dash-exch { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+        .dash-tables { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+        .dash-exch { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 30px; }
 
         /* ── POSITION SECTION (DASHBOARD) ── */
         .pos-pnl-wrap { display: flex; align-items: center; gap: 8px; }
@@ -420,33 +457,28 @@
             font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px;
             background: var(--border); color: var(--text-secondary); white-space: nowrap; cursor: help;
         }
-        .pos-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
+        .pos-summary-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 14px; }
         .pos-sum-card {
-            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
-            padding: 16px; text-align: center; transition: all 0.3s;
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+            padding: 16px 18px; transition: transform 0.25s, box-shadow 0.25s; box-shadow: var(--shadow-sm);
         }
         .pos-sum-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--border-accent); }
-        .pos-sum-label { font-size: 9px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
-        .pos-sum-value { font-size: 22px; font-weight: 900; font-family: 'JetBrains Mono', monospace; letter-spacing: -0.5px; }
-        .pos-sum-sub { font-size: 10px; color: var(--text-secondary); margin-top: 4px; font-weight: 500; }
-        .pos-best-worst { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-        .pos-bw-card {
-            background: var(--bg-card); border-radius: var(--radius-md); padding: 14px;
-            border: 1px solid var(--border); transition: all 0.3s;
-        }
-        .pos-bw-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-        .pos-bw-card.best { border-left: 3px solid var(--success); }
-        .pos-bw-card.worst { border-left: 3px solid var(--danger); }
-        .pos-bw-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-        .pos-bw-card.best .pos-bw-title { color: var(--success); }
-        .pos-bw-card.worst .pos-bw-title { color: var(--danger); }
+        .pos-sum-label { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .pos-sum-value { font-size: 22px; font-weight: 800; font-family: 'JetBrains Mono', monospace; letter-spacing: -0.5px; line-height: 1.15; }
+        .pos-sum-sub { font-size: 10.5px; color: var(--text-secondary); margin-top: 6px; font-weight: 500; }
+        .pos-best-worst { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+
         .dash-exch-card {
             background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
-            padding: 20px; transition: all 0.3s;
+            padding: 18px 20px; transition: transform 0.25s, box-shadow 0.25s; box-shadow: var(--shadow-sm);
         }
         .dash-exch-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-        .dash-exch-name { font-size: 16px; font-weight: 900; margin-bottom: 14px; letter-spacing: -0.5px; }
-        .dash-exch-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
+        .dash-exch-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+        .dash-exch-name { font-size: 18px; font-weight: 900; letter-spacing: -0.5px; }
+        .dash-exch-full { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+        .exch-bar { height: 6px; border-radius: 4px; background: var(--danger-bg); overflow: hidden; margin: 10px 0 8px; }
+        .exch-bar > div { height: 100%; background: var(--success); border-radius: 4px; }
+        .dash-exch-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed var(--border); font-size: 12px; }
         .dash-exch-row:last-child { border-bottom: none; }
         .dash-exch-label { color: var(--text-secondary); font-weight: 600; }
         .dash-exch-val { font-weight: 800; font-family: 'JetBrains Mono', monospace; }
@@ -476,9 +508,25 @@
             .search-box { width: 100%; }
             th, td { padding: 8px 10px; }
             .container { padding: 0 12px; }
+            .dash-grid, .dash-highlights { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .dash-highlights .hl-card.good, .dash-highlights .hl-card.bad { grid-column: span 2; }
+            .dash-tables, .dash-exch, .pos-best-worst { grid-template-columns: 1fr; }
+            .pos-summary-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .dash-hero { padding: 16px; align-items: flex-start; }
+            .dash-hero-title { font-size: 20px; }
+            .dash-hero-actions { width: 100%; }
+            .hero-btn { flex: 1; }
+            .dash-card { padding: 14px; }
+            .dash-card .dc-value { font-size: 22px; }
+            .dc-head { margin-bottom: 8px; }
+            .dash-donut { width: 56px; height: 56px; }
+            .dash-donut-hole { width: 40px; height: 40px; font-size: 11px; }
+            .dash-donut-wrap { gap: 10px; }
+        }
+        @media (min-width: 769px) and (max-width: 1100px) {
             .dash-grid { grid-template-columns: repeat(2, 1fr); }
-            .dash-compare, .dash-streaks, .dash-tables, .dash-exch, .pos-best-worst { grid-template-columns: 1fr; }
-            .pos-summary-grid { grid-template-columns: repeat(2, 1fr); }
+            .dash-highlights { grid-template-columns: 1fr 1fr; }
+            .pos-summary-grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
@@ -498,7 +546,7 @@
         </div>
         <div class="header-right">
             <input type="text" class="search-box" id="stockSearch" placeholder="🔍 Search stocks..." oninput="filterStocks()">
-            <div class="date-badge">📅 25 Oct 2026, 11:20 PM</div>
+            <div class="date-badge">📅 25 Oct 2026, 11:30 PM</div>
             <button class="btn-icon" onclick="toggleTheme()" id="themeBtn" title="Toggle Theme (D)">☽</button>
         </div>
     </div>
@@ -512,89 +560,106 @@
     <!-- ═══════════════════════════════════ -->
     <div class="panel active" id="panel-dashboard">
 
+        <!-- HERO -->
+        <div class="dash-hero">
+            <div>
+                <div class="dash-hero-eyebrow">Darvas Box · NSE + BSE</div>
+                <div class="dash-hero-title">Strategy Performance</div>
+                <div class="dash-hero-sub">
+                    <span><b>1,230</b> closed trades</span>
+                    <span><b>47</b> open positions</span>
+                    <span><b>442</b> on watch</span>
+                    <span>Updated 25 Oct 2026, 11:30 PM</span>
+                </div>
+            </div>
+            <div class="dash-hero-actions">
+                <button class="hero-btn primary" onclick="switchTab('positions')">💼 Open positions</button>
+                <button class="hero-btn" onclick="switchTab('trades')">📈 Trade history</button>
+            </div>
+        </div>
+
         <!-- KEY METRICS GRID -->
         <div class="dash-grid">
-            <div class="dash-card">
-                <div class="dc-label">Total Trades</div>
+            <div class="dash-card" style="--tone:var(--accent)">
+                <div class="dc-head"><span class="dc-icon">📊</span><span class="dc-label">Total Trades</span></div>
                 <div class="dc-value" style="color:var(--accent)">1230</div>
                 <div class="dc-sub">🟢 411 Wins · 🔴 819 Losses</div>
             </div>
-            <div class="dash-card">
-                <div class="dc-label">Win Rate</div>
+            <div class="dash-card" style="--tone:var(--success)">
+                <div class="dc-head"><span class="dc-icon">🎯</span><span class="dc-label">Win Rate</span></div>
                 <div class="dash-donut-wrap">
                     <div class="dash-donut" style="background:conic-gradient(var(--success) 0deg 120.2deg, var(--danger) 120.2deg 360deg)">
                         <div class="dash-donut-hole">33.4%</div>
                     </div>
-                    <div><div style="font-size:11px;color:var(--text-secondary)">Win 411</div><div style="font-size:11px;color:var(--text-secondary)">Loss 819</div></div>
+                    <div class="donut-legend">
+                        <div><i style="background:var(--success)"></i>Win <b>411</b></div>
+                        <div><i style="background:var(--danger)"></i>Loss <b>819</b></div>
+                    </div>
                 </div>
             </div>
-            <div class="dash-card">
-                <div class="dc-label">Cumulative Return</div>
+            <div class="dash-card" style="--tone:var(--success)">
+                <div class="dc-head"><span class="dc-icon">💰</span><span class="dc-label">Cumulative Return</span></div>
                 <div class="dc-value" style="color:var(--success)">+6605.51%</div>
                 <div class="dc-sub">Sum of all trade returns</div>
             </div>
-            <div class="dash-card">
-                <div class="dc-label">Avg Return / Trade</div>
+            <div class="dash-card" style="--tone:var(--info)">
+                <div class="dc-head"><span class="dc-icon">📈</span><span class="dc-label">Avg Return / Trade</span></div>
                 <div class="dc-value" style="color:var(--success)">+5.37%</div>
                 <div class="dc-sub">Win avg 24.44% · Loss avg -4.2%</div>
             </div>
-            <div class="dash-card">
-                <div class="dc-label">Profit Factor</div>
+            <div class="dash-card" style="--tone:var(--warning)">
+                <div class="dc-head"><span class="dc-icon">⚖️</span><span class="dc-label">Profit Factor</span></div>
                 <div class="dc-value" style="color:var(--success)">2.92</div>
                 <div class="dc-sub">✅ Profitable strategy</div>
             </div>
-            <div class="dash-card">
-                <div class="dc-label">Expectancy</div>
+            <div class="dash-card" style="--tone:#14b8a6">
+                <div class="dc-head"><span class="dc-icon">🧮</span><span class="dc-label">Expectancy</span></div>
                 <div class="dc-value" style="color:var(--success)">+5.37%</div>
                 <div class="dc-sub">Expected return per trade</div>
             </div>
-            <div class="dash-card">
-                <div class="dc-label">Avg Holding Period</div>
+            <div class="dash-card" style="--tone:var(--info)">
+                <div class="dc-head"><span class="dc-icon">⏱️</span><span class="dc-label">Avg Holding Period</span></div>
                 <div class="dc-value" style="color:var(--info)">12.4</div>
                 <div class="dc-sub">Days (entry to exit)</div>
             </div>
-            <div class="dash-card">
-                <div class="dc-label">Risk : Reward</div>
+            <div class="dash-card" style="--tone:var(--accent2)">
+                <div class="dc-head"><span class="dc-icon">🛡️</span><span class="dc-label">Risk : Reward</span></div>
                 <div class="dc-value" style="color:var(--accent)">5.8 : 1</div>
                 <div class="dc-sub">+24.44% win vs -4.2% loss</div>
             </div>
         </div>
 
-        <!-- BEST vs WORST -->
-        <div class="dash-compare">
-            <div class="dash-cmp-card best">
-                <div class="dash-cmp-title">🏆 Best Trade</div>
-                <div class="dash-cmp-sym">501151</div>
-                <div style="font-size:11px;color:var(--text-secondary);margin:2px 0">KARTIK INVESTMENTS TRUST LTD.</div>
-                <div class="dash-cmp-pct" style="color:var(--success)">+549.03%</div>
-                <div style="font-size:10px;color:var(--text-muted)">13-Mar-2026 → 22-May-2026</div>
+        <!-- HIGHLIGHTS: BEST / WORST + STREAKS -->
+        <div class="dash-highlights">
+            <div class="hl-card good">
+                <div class="hl-label">🏆 Best Trade</div>
+                <div class="hl-row"><span class="hl-value" style="color:var(--success)">+549.03%</span><span class="hl-sym">501151</span></div>
+                <div class="hl-meta" title="KARTIK INVESTMENTS TRUST LTD.">KARTIK INVESTMENTS TRUST LTD.</div>
+                <div class="hl-dates">13-Mar-2026 → 22-May-2026</div>
             </div>
-            <div class="dash-cmp-card worst">
-                <div class="dash-cmp-title">💀 Worst Trade</div>
-                <div class="dash-cmp-sym">539991</div>
-                <div style="font-size:11px;color:var(--text-secondary);margin:2px 0">CONFIDENCE FUTURISTIC ENERGETE</div>
-                <div class="dash-cmp-pct" style="color:var(--danger)">-18.84%</div>
-                <div style="font-size:10px;color:var(--text-muted)">13-Mar-2026 → 16-Mar-2026</div>
+            <div class="hl-card bad">
+                <div class="hl-label">💀 Worst Trade</div>
+                <div class="hl-row"><span class="hl-value" style="color:var(--danger)">-18.84%</span><span class="hl-sym">539991</span></div>
+                <div class="hl-meta" title="CONFIDENCE FUTURISTIC ENERGETE">CONFIDENCE FUTURISTIC ENERGETE</div>
+                <div class="hl-dates">13-Mar-2026 → 16-Mar-2026</div>
             </div>
-        </div>
-
-        <!-- STREAKS -->
-        <div class="dash-streaks">
-            <div class="dash-streak-card">
-                <div class="dash-streak-icon">🔥</div>
-                <div><div class="dash-streak-val" style="color:var(--success)">17</div><div class="dash-streak-label">Max Win Streak</div></div>
+            <div class="hl-card">
+                <div class="hl-label">🔥 Max Win Streak</div>
+                <div class="hl-value dash-streak-val" style="color:var(--success)">17</div>
+                <div class="hl-meta">Lagatar winning trades</div>
             </div>
-            <div class="dash-streak-card">
-                <div class="dash-streak-icon">❄️</div>
-                <div><div class="dash-streak-val" style="color:var(--danger)">36</div><div class="dash-streak-label">Max Loss Streak</div></div>
+            <div class="hl-card">
+                <div class="hl-label">❄️ Max Loss Streak</div>
+                <div class="hl-value dash-streak-val" style="color:var(--danger)">36</div>
+                <div class="hl-meta">Lagatar losing trades</div>
             </div>
         </div>
 
         <!-- DISTRIBUTION -->
         <div class="dash-dist">
-            <div class="dash-dist-title">Trade Distribution</div>
+            <div class="dash-dist-title"><span>Trade Distribution</span><span>1,230 trades</span></div>
             <div class="dash-dist-bar">
-                <div class="dash-dist-seg" style="width:1.5%;background:#f59e0b" title="Multibagger">18</div>
+                <div class="dash-dist-seg" style="width:1.5%;background:#f59e0b" title="Multibagger"></div>
                 <div class="dash-dist-seg" style="width:4.3%;background:#22c55e" title="High Win">53</div>
                 <div class="dash-dist-seg" style="width:11.7%;background:#3b82f6" title="Medium Win">144</div>
                 <div class="dash-dist-seg" style="width:16.2%;background:#14b8a6" title="Small Win">199</div>
@@ -602,22 +667,22 @@
             </div>
             <div class="dash-dist-legend">
                 <div class="dash-dist-item"><div class="dash-dist-dot" style="background:#f59e0b"></div>🚀 Multibagger (&gt;100%) <span class="dash-dist-count">18 (1.5%)</span></div>
-                <div class="dash-dist-item"><div class="dash-dist-dot" style="background:#22c55e"></div>🟢 High Win (30-100%) <span class="dash-dist-count">53 (4.3%)</span></div>
-                <div class="dash-dist-item"><div class="dash-dist-dot" style="background:#3b82f6"></div>🔵 Medium Win (10-30%) <span class="dash-dist-count">144 (11.7%)</span></div>
-                <div class="dash-dist-item"><div class="dash-dist-dot" style="background:#14b8a6"></div>🟡 Small Win (0-10%) <span class="dash-dist-count">199 (16.2%)</span></div>
-                <div class="dash-dist-item"><div class="dash-dist-dot" style="background:#ef4444"></div>🔴 Loss (&lt;0%) <span class="dash-dist-count">816 (66.3%)</span></div>
+                <div class="dash-dist-item"><div class="dash-dist-dot" style="background:#22c55e"></div>High Win (30-100%) <span class="dash-dist-count">53 (4.3%)</span></div>
+                <div class="dash-dist-item"><div class="dash-dist-dot" style="background:#3b82f6"></div>Medium Win (10-30%) <span class="dash-dist-count">144 (11.7%)</span></div>
+                <div class="dash-dist-item"><div class="dash-dist-dot" style="background:#14b8a6"></div>Small Win (0-10%) <span class="dash-dist-count">199 (16.2%)</span></div>
+                <div class="dash-dist-item"><div class="dash-dist-dot" style="background:#ef4444"></div>Loss (&lt;0%) <span class="dash-dist-count">816 (66.3%)</span></div>
             </div>
         </div>
 
         <!-- MONTHLY PERFORMANCE -->
-        <div class="dash-section-title">📅 Monthly Performance</div>
-        <div class="card" style="margin-bottom:20px">
+        <div class="dash-section-title">📅 Monthly Performance <small>Exit month ke hisaab se · latest upar</small></div>
+        <div class="card" style="margin-bottom:14px">
             <div class="table-scroll" style="max-height:400px">
             <table>
                 <thead><tr>
                     <th>Month</th><th>Trades</th><th>Wins</th><th>Losses</th><th>Win Rate</th><th>Total Return</th><th>Avg Return</th>
                 </tr></thead>
-                <tbody><tr><td style="font-weight:700">Feb 2026</td><td>26</td><td style="color:var(--success)">1</td><td style="color:var(--danger)">25</td><td>3.8%</td><td style="color:var(--danger);font-weight:700;font-family:JetBrains Mono,monospace">-102.86%</td><td style="color:var(--danger);font-weight:600;font-family:JetBrains Mono,monospace">-3.96%</td></tr><tr><td style="font-weight:700">Mar 2026</td><td>420</td><td style="color:var(--success)">90</td><td style="color:var(--danger)">330</td><td>21.4%</td><td style="color:var(--danger);font-weight:700;font-family:JetBrains Mono,monospace">-531.51%</td><td style="color:var(--danger);font-weight:600;font-family:JetBrains Mono,monospace">-1.27%</td></tr><tr><td style="font-weight:700">Apr 2026</td><td>285</td><td style="color:var(--success)">125</td><td style="color:var(--danger)">160</td><td>43.9%</td><td style="color:var(--success);font-weight:700;font-family:JetBrains Mono,monospace">+989.16%</td><td style="color:var(--success);font-weight:600;font-family:JetBrains Mono,monospace">+3.47%</td></tr><tr><td style="font-weight:700">May 2026</td><td>170</td><td style="color:var(--success)">83</td><td style="color:var(--danger)">87</td><td>48.8%</td><td style="color:var(--success);font-weight:700;font-family:JetBrains Mono,monospace">+2368.51%</td><td style="color:var(--success);font-weight:600;font-family:JetBrains Mono,monospace">+13.93%</td></tr><tr><td style="font-weight:700">Jun 2026</td><td>66</td><td style="color:var(--success)">27</td><td style="color:var(--danger)">39</td><td>40.9%</td><td style="color:var(--success);font-weight:700;font-family:JetBrains Mono,monospace">+611.6%</td><td style="color:var(--success);font-weight:600;font-family:JetBrains Mono,monospace">+9.27%</td></tr><tr><td style="font-weight:700">Jul 2026</td><td>45</td><td style="color:var(--success)">23</td><td style="color:var(--danger)">22</td><td>51.1%</td><td style="color:var(--success);font-weight:700;font-family:JetBrains Mono,monospace">+1374.63%</td><td style="color:var(--success);font-weight:600;font-family:JetBrains Mono,monospace">+30.55%</td></tr><tr><td style="font-weight:700">Aug 2026</td><td>49</td><td style="color:var(--success)">20</td><td style="color:var(--danger)">29</td><td>40.8%</td><td style="color:var(--success);font-weight:700;font-family:JetBrains Mono,monospace">+790.01%</td><td style="color:var(--success);font-weight:600;font-family:JetBrains Mono,monospace">+16.12%</td></tr><tr><td style="font-weight:700">Sep 2026</td><td>68</td><td style="color:var(--success)">20</td><td style="color:var(--danger)">48</td><td>29.4%</td><td style="color:var(--success);font-weight:700;font-family:JetBrains Mono,monospace">+303.68%</td><td style="color:var(--success);font-weight:600;font-family:JetBrains Mono,monospace">+4.47%</td></tr><tr><td style="font-weight:700">Oct 2026</td><td>101</td><td style="color:var(--success)">22</td><td style="color:var(--danger)">79</td><td>21.8%</td><td style="color:var(--success);font-weight:700;font-family:JetBrains Mono,monospace">+802.29%</td><td style="color:var(--success);font-weight:600;font-family:JetBrains Mono,monospace">+7.94%</td></tr></tbody>
+                <tbody><tr><td style="font-weight:700">Oct 2026</td><td class="price">101</td><td class="price" style="color:var(--success)">22</td><td class="price" style="color:var(--danger)">79</td><td><div class="mini-stat"><span class="price">21.8%</span><div class="mini-bar"><div style="width:21.8%;background:var(--accent)"></div></div></div></td><td><div class="mini-stat"><span class="price" style="color:var(--success);font-weight:800">+802.29%</span><div class="mini-bar"><div style="width:33.9%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--success)">+7.94%</td></tr><tr><td style="font-weight:700">Sep 2026</td><td class="price">68</td><td class="price" style="color:var(--success)">20</td><td class="price" style="color:var(--danger)">48</td><td><div class="mini-stat"><span class="price">29.4%</span><div class="mini-bar"><div style="width:29.4%;background:var(--accent)"></div></div></div></td><td><div class="mini-stat"><span class="price" style="color:var(--success);font-weight:800">+303.68%</span><div class="mini-bar"><div style="width:12.8%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--success)">+4.47%</td></tr><tr><td style="font-weight:700">Aug 2026</td><td class="price">49</td><td class="price" style="color:var(--success)">20</td><td class="price" style="color:var(--danger)">29</td><td><div class="mini-stat"><span class="price">40.8%</span><div class="mini-bar"><div style="width:40.8%;background:var(--accent)"></div></div></div></td><td><div class="mini-stat"><span class="price" style="color:var(--success);font-weight:800">+790.01%</span><div class="mini-bar"><div style="width:33.4%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--success)">+16.12%</td></tr><tr><td style="font-weight:700">Jul 2026</td><td class="price">45</td><td class="price" style="color:var(--success)">23</td><td class="price" style="color:var(--danger)">22</td><td><div class="mini-stat"><span class="price">51.1%</span><div class="mini-bar"><div style="width:51.1%;background:var(--accent)"></div></div></div></td><td><div class="mini-stat"><span class="price" style="color:var(--success);font-weight:800">+1374.63%</span><div class="mini-bar"><div style="width:58.0%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--success)">+30.55%</td></tr><tr><td style="font-weight:700">Jun 2026</td><td class="price">66</td><td class="price" style="color:var(--success)">27</td><td class="price" style="color:var(--danger)">39</td><td><div class="mini-stat"><span class="price">40.9%</span><div class="mini-bar"><div style="width:40.9%;background:var(--accent)"></div></div></div></td><td><div class="mini-stat"><span class="price" style="color:var(--success);font-weight:800">+611.6%</span><div class="mini-bar"><div style="width:25.8%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--success)">+9.27%</td></tr><tr><td style="font-weight:700">May 2026</td><td class="price">170</td><td class="price" style="color:var(--success)">83</td><td class="price" style="color:var(--danger)">87</td><td><div class="mini-stat"><span class="price">48.8%</span><div class="mini-bar"><div style="width:48.8%;background:var(--accent)"></div></div></div></td><td><div class="mini-stat"><span class="price" style="color:var(--success);font-weight:800">+2368.51%</span><div class="mini-bar"><div style="width:100.0%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--success)">+13.93%</td></tr><tr><td style="font-weight:700">Apr 2026</td><td class="price">285</td><td class="price" style="color:var(--success)">125</td><td class="price" style="color:var(--danger)">160</td><td><div class="mini-stat"><span class="price">43.9%</span><div class="mini-bar"><div style="width:43.9%;background:var(--accent)"></div></div></div></td><td><div class="mini-stat"><span class="price" style="color:var(--success);font-weight:800">+989.16%</span><div class="mini-bar"><div style="width:41.8%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--success)">+3.47%</td></tr><tr><td style="font-weight:700">Mar 2026</td><td class="price">420</td><td class="price" style="color:var(--success)">90</td><td class="price" style="color:var(--danger)">330</td><td><div class="mini-stat"><span class="price">21.4%</span><div class="mini-bar"><div style="width:21.4%;background:var(--accent)"></div></div></div></td><td><div class="mini-stat"><span class="price" style="color:var(--danger);font-weight:800">-531.51%</span><div class="mini-bar"><div style="width:22.4%;background:var(--danger)"></div></div></div></td><td class="price" style="color:var(--danger)">-1.27%</td></tr><tr><td style="font-weight:700">Feb 2026</td><td class="price">26</td><td class="price" style="color:var(--success)">1</td><td class="price" style="color:var(--danger)">25</td><td><div class="mini-stat"><span class="price">3.8%</span><div class="mini-bar"><div style="width:3.8%;background:var(--accent)"></div></div></div></td><td><div class="mini-stat"><span class="price" style="color:var(--danger);font-weight:800">-102.86%</span><div class="mini-bar"><div style="width:4.3%;background:var(--danger)"></div></div></div></td><td class="price" style="color:var(--danger)">-3.96%</td></tr></tbody>
             </table>
             </div>
         </div>
@@ -626,23 +691,23 @@
         <div class="dash-section-title">🏅 Top 5 Best & Worst Trades</div>
         <div class="dash-tables">
             <div class="card">
-                <div style="padding:12px 16px;font-weight:800;font-size:12px;color:var(--success);text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--border)">🏆 Top 5 Winners</div>
+                <div class="dash-card-head" style="color:var(--success)"><span>🏆 Top 5 Winners</span><small>Return ke hisaab se</small></div>
                 <div class="table-scroll"><table>
-                    <thead><tr><th style="width:35px">#</th><th style="width:90px">Symbol</th><th>Company</th><th style="width:80px">Return</th><th style="width:90px">Entry</th><th style="width:90px">Exit</th></tr></thead>
-                    <tbody><tr><td style="font-weight:700;color:var(--accent)">1</td><td><span class="sym">501151</span></td><td style="font-weight:500;max-width:180px;overflow:hidden;text-overflow:ellipsis">KARTIK INVESTMENTS TRUST LTD.</td><td class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace">+549.03%</td><td style="font-size:11px;color:var(--text-secondary)">13-Mar-2026</td><td style="font-size:11px;color:var(--text-secondary)">22-May-2026</td></tr><tr><td style="font-weight:700;color:var(--accent)">2</td><td><span class="sym">521036</span></td><td style="font-weight:500;max-width:180px;overflow:hidden;text-overflow:ellipsis">SOURCE INDUSTRIES (INDIA) LTD.</td><td class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace">+338.86%</td><td style="font-size:11px;color:var(--text-secondary)">22-Jun-2026</td><td style="font-size:11px;color:var(--text-secondary)">23-Oct-2026</td></tr><tr><td style="font-weight:700;color:var(--accent)">3</td><td><span class="sym">AHLWEST</span></td><td style="font-weight:500;max-width:180px;overflow:hidden;text-overflow:ellipsis">ASIAN HOTELS (WEST) LTD</td><td class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace">+310.82%</td><td style="font-size:11px;color:var(--text-secondary)">09-Apr-2026</td><td style="font-size:11px;color:var(--text-secondary)">22-May-2026</td></tr><tr><td style="font-weight:700;color:var(--accent)">4</td><td><span class="sym">531463</span></td><td style="font-weight:500;max-width:180px;overflow:hidden;text-overflow:ellipsis">GLOBAL INFRATECH & FINANCE LIM</td><td class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace">+297.67%</td><td style="font-size:11px;color:var(--text-secondary)">11-May-2026</td><td style="font-size:11px;color:var(--text-secondary)">05-Oct-2026</td></tr><tr><td style="font-weight:700;color:var(--accent)">5</td><td><span class="sym">512062</span></td><td style="font-weight:500;max-width:180px;overflow:hidden;text-overflow:ellipsis">SANMITRA COMMERCIAL LTD.</td><td class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace">+264.47%</td><td style="font-size:11px;color:var(--text-secondary)">09-Mar-2026</td><td style="font-size:11px;color:var(--text-secondary)">06-Jul-2026</td></tr></tbody>
+                    <thead><tr><th style="width:45px">#</th><th style="width:90px">Symbol</th><th>Company</th><th style="width:90px">Return</th><th style="width:95px">Entry</th><th style="width:95px">Exit</th></tr></thead>
+                    <tbody><tr><td><span class="rank-chip">1</span></td><td><span class="sym">501151</span></td><td style="font-weight:500" title="KARTIK INVESTMENTS TRUST LTD.">KARTIK INVESTMENTS TRUST LTD.</td><td class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace">+549.03%</td><td style="font-size:11px;color:var(--text-secondary)">13-Mar-2026</td><td style="font-size:11px;color:var(--text-secondary)">22-May-2026</td></tr><tr><td><span class="rank-chip">2</span></td><td><span class="sym">521036</span></td><td style="font-weight:500" title="SOURCE INDUSTRIES (INDIA) LTD.">SOURCE INDUSTRIES (INDIA) LTD.</td><td class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace">+338.86%</td><td style="font-size:11px;color:var(--text-secondary)">22-Jun-2026</td><td style="font-size:11px;color:var(--text-secondary)">23-Oct-2026</td></tr><tr><td><span class="rank-chip">3</span></td><td><span class="sym">AHLWEST</span></td><td style="font-weight:500" title="ASIAN HOTELS (WEST) LTD">ASIAN HOTELS (WEST) LTD</td><td class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace">+310.82%</td><td style="font-size:11px;color:var(--text-secondary)">09-Apr-2026</td><td style="font-size:11px;color:var(--text-secondary)">22-May-2026</td></tr><tr><td><span class="rank-chip">4</span></td><td><span class="sym">531463</span></td><td style="font-weight:500" title="GLOBAL INFRATECH & FINANCE LIM">GLOBAL INFRATECH & FINANCE LIM</td><td class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace">+297.67%</td><td style="font-size:11px;color:var(--text-secondary)">11-May-2026</td><td style="font-size:11px;color:var(--text-secondary)">05-Oct-2026</td></tr><tr><td><span class="rank-chip">5</span></td><td><span class="sym">512062</span></td><td style="font-weight:500" title="SANMITRA COMMERCIAL LTD.">SANMITRA COMMERCIAL LTD.</td><td class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace">+264.47%</td><td style="font-size:11px;color:var(--text-secondary)">09-Mar-2026</td><td style="font-size:11px;color:var(--text-secondary)">06-Jul-2026</td></tr></tbody>
                 </table></div>
             </div>
             <div class="card">
-                <div style="padding:12px 16px;font-weight:800;font-size:12px;color:var(--danger);text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--border)">💀 Top 5 Losers</div>
+                <div class="dash-card-head" style="color:var(--danger)"><span>💀 Top 5 Losers</span><small>Return ke hisaab se</small></div>
                 <div class="table-scroll"><table>
-                    <thead><tr><th style="width:35px">#</th><th style="width:90px">Symbol</th><th>Company</th><th style="width:80px">Return</th><th style="width:90px">Entry</th><th style="width:90px">Exit</th></tr></thead>
-                    <tbody><tr><td style="font-weight:700;color:var(--accent)">1</td><td><span class="sym">539991</span></td><td style="font-weight:500;max-width:180px;overflow:hidden;text-overflow:ellipsis">CONFIDENCE FUTURISTIC ENERGETE</td><td class="pnl-negative" style="font-weight:800;font-family:JetBrains Mono,monospace">-18.84%</td><td style="font-size:11px;color:var(--text-secondary)">13-Mar-2026</td><td style="font-size:11px;color:var(--text-secondary)">16-Mar-2026</td></tr><tr><td style="font-weight:700;color:var(--accent)">2</td><td><span class="sym">512597</span></td><td style="font-weight:500;max-width:180px;overflow:hidden;text-overflow:ellipsis">KEYNOTE FINANCIAL SERVICES LIM</td><td class="pnl-negative" style="font-weight:800;font-family:JetBrains Mono,monospace">-16.38%</td><td style="font-size:11px;color:var(--text-secondary)">22-Oct-2026</td><td style="font-size:11px;color:var(--text-secondary)">23-Oct-2026</td></tr><tr><td style="font-weight:700;color:var(--accent)">3</td><td><span class="sym">SIKA</span></td><td style="font-weight:500;max-width:180px;overflow:hidden;text-overflow:ellipsis">SIKA INTERPLANT SYSTEMS L</td><td class="pnl-negative" style="font-weight:800;font-family:JetBrains Mono,monospace">-15.35%</td><td style="font-size:11px;color:var(--text-secondary)">08-May-2026</td><td style="font-size:11px;color:var(--text-secondary)">11-May-2026</td></tr><tr><td style="font-weight:700;color:var(--accent)">4</td><td><span class="sym">GAUDIUMIVF</span></td><td style="font-weight:500;max-width:180px;overflow:hidden;text-overflow:ellipsis">GAUDIUM IVF N WOMEN H L</td><td class="pnl-negative" style="font-weight:800;font-family:JetBrains Mono,monospace">-15.01%</td><td style="font-size:11px;color:var(--text-secondary)">18-Mar-2026</td><td style="font-size:11px;color:var(--text-secondary)">19-Mar-2026</td></tr><tr><td style="font-weight:700;color:var(--accent)">5</td><td><span class="sym">544709</span></td><td style="font-weight:500;max-width:180px;overflow:hidden;text-overflow:ellipsis">Gaudium IVF and Women Health L</td><td class="pnl-negative" style="font-weight:800;font-family:JetBrains Mono,monospace">-14.88%</td><td style="font-size:11px;color:var(--text-secondary)">18-Mar-2026</td><td style="font-size:11px;color:var(--text-secondary)">19-Mar-2026</td></tr></tbody>
+                    <thead><tr><th style="width:45px">#</th><th style="width:90px">Symbol</th><th>Company</th><th style="width:90px">Return</th><th style="width:95px">Entry</th><th style="width:95px">Exit</th></tr></thead>
+                    <tbody><tr><td><span class="rank-chip">1</span></td><td><span class="sym">539991</span></td><td style="font-weight:500" title="CONFIDENCE FUTURISTIC ENERGETE">CONFIDENCE FUTURISTIC ENERGETE</td><td class="pnl-negative" style="font-weight:800;font-family:JetBrains Mono,monospace">-18.84%</td><td style="font-size:11px;color:var(--text-secondary)">13-Mar-2026</td><td style="font-size:11px;color:var(--text-secondary)">16-Mar-2026</td></tr><tr><td><span class="rank-chip">2</span></td><td><span class="sym">512597</span></td><td style="font-weight:500" title="KEYNOTE FINANCIAL SERVICES LIM">KEYNOTE FINANCIAL SERVICES LIM</td><td class="pnl-negative" style="font-weight:800;font-family:JetBrains Mono,monospace">-16.38%</td><td style="font-size:11px;color:var(--text-secondary)">22-Oct-2026</td><td style="font-size:11px;color:var(--text-secondary)">23-Oct-2026</td></tr><tr><td><span class="rank-chip">3</span></td><td><span class="sym">SIKA</span></td><td style="font-weight:500" title="SIKA INTERPLANT SYSTEMS L">SIKA INTERPLANT SYSTEMS L</td><td class="pnl-negative" style="font-weight:800;font-family:JetBrains Mono,monospace">-15.35%</td><td style="font-size:11px;color:var(--text-secondary)">08-May-2026</td><td style="font-size:11px;color:var(--text-secondary)">11-May-2026</td></tr><tr><td><span class="rank-chip">4</span></td><td><span class="sym">GAUDIUMIVF</span></td><td style="font-weight:500" title="GAUDIUM IVF N WOMEN H L">GAUDIUM IVF N WOMEN H L</td><td class="pnl-negative" style="font-weight:800;font-family:JetBrains Mono,monospace">-15.01%</td><td style="font-size:11px;color:var(--text-secondary)">18-Mar-2026</td><td style="font-size:11px;color:var(--text-secondary)">19-Mar-2026</td></tr><tr><td><span class="rank-chip">5</span></td><td><span class="sym">544709</span></td><td style="font-weight:500" title="Gaudium IVF and Women Health L">Gaudium IVF and Women Health L</td><td class="pnl-negative" style="font-weight:800;font-family:JetBrains Mono,monospace">-14.88%</td><td style="font-size:11px;color:var(--text-secondary)">18-Mar-2026</td><td style="font-size:11px;color:var(--text-secondary)">19-Mar-2026</td></tr></tbody>
                 </table></div>
             </div>
         </div>
 
         <!-- ACTIVE POSITIONS OVERVIEW -->
-        <div class="dash-section-title">💼 Active Positions Overview</div>
+        <div class="dash-section-title">💼 Active Positions Overview <small>Aaj ke close price par</small></div>
         <div class="pos-summary-grid">
             <div class="pos-sum-card">
                 <div class="pos-sum-label">Active Positions</div>
@@ -672,16 +737,16 @@
         </div>
 
         <div class="pos-best-worst">
-            <div class="pos-bw-card best">
-                <div class="pos-bw-title">🏆 Best Position</div>
+            <div class="hl-card good">
+                <div class="hl-label">🏆 Best Position</div>
                 <div style="font-family:JetBrains Mono,monospace;font-weight:800;color:var(--accent);font-size:13px">508867</div>
                 <div style="font-size:10px;color:var(--text-secondary);margin:2px 0">NEW MARKETS ADVISORY LTD.</div>
                 <div style="font-family:JetBrains Mono,monospace;font-weight:900;font-size:20px;color:var(--success);margin:4px 0">+302.84%</div>
                 <div style="font-size:10px;color:var(--text-muted)">Entry ₹30.58 → ₹123.19</div>
                 <div style="font-size:9px;color:var(--text-muted);margin-top:3px">📅 Since 03-Jun-2026</div>
             </div>
-            <div class="pos-bw-card worst">
-                <div class="pos-bw-title">⚠️ Weakest Position</div>
+            <div class="hl-card bad">
+                <div class="hl-label">⚠️ Weakest Position</div>
                 <div style="font-family:JetBrains Mono,monospace;font-weight:800;color:var(--accent);font-size:13px">539120</div>
                 <div style="font-size:10px;color:var(--text-secondary);margin:2px 0">GRAMEVA LIMITED</div>
                 <div style="font-family:JetBrains Mono,monospace;font-weight:900;font-size:20px;color:var(--danger);margin:4px 0">-7.21%</div>
@@ -690,15 +755,15 @@
             </div>
         </div>
 
-        <div class="card" style="margin-bottom:20px">
-            <div style="padding:12px 16px;font-weight:800;font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+        <div class="card" style="margin-bottom:14px">
+            <div class="dash-card-head" style="color:var(--accent)">
                 <span>📊 All Active Positions</span>
-                <span style="font-size:10px;color:var(--text-muted);font-weight:600;text-transform:none">Sorted by P&L</span>
+                <small>Sorted by P&L</small>
             </div>
             <div class="table-scroll" style="max-height:450px">
             <table>
                 <thead><tr>
-                    <th style="width:100px">Symbol</th><th>Company</th><th style="width:90px">Entry ₹</th><th style="width:90px">Current ₹</th><th style="width:140px">P&L</th><th style="width:90px">Stop Loss</th><th style="width:60px">Days</th><th style="width:70px">Trails</th>
+                    <th style="width:100px">Symbol</th><th>Company</th><th style="width:90px">Entry ₹</th><th style="width:90px">Current ₹</th><th style="width:140px">P&L</th><th style="width:90px">Stop Loss</th><th style="width:60px">Days</th><th style="width:84px">Trails</th>
                 </tr></thead>
                 <tbody><tr><td><span class="sym">508867</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="NEW MARKETS ADVISORY LTD.">NEW MARKETS ADVISORY LTD.</td><td class="price">₹30.58</td><td class="price">₹123.19</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+302.84%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:100%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹120.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 03-Jun-2026">144d</td><td><span class="pos-trail-badge" title="9 box upgrades">🔥 9</span></td></tr><tr><td><span class="sym">509084</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="PHOTON CAPITAL ADVISORS LTD.">PHOTON CAPITAL ADVISORS LTD.</td><td class="price">₹153.45</td><td class="price">₹501.60</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+226.88%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:100%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹500.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 24-Jun-2026">123d</td><td><span class="pos-trail-badge" title="20 box upgrades">🔥 20</span></td></tr><tr><td><span class="sym">526331</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="ADVANCE MULTITECH LTD.">ADVANCE MULTITECH LTD.</td><td class="price">₹95.62</td><td class="price">₹275.10</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+187.70%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:100%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹275.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 25-Sep-2026">30d</td><td><span class="pos-trail-badge" title="16 box upgrades">🔥 16</span></td></tr><tr><td><span class="sym">500178</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="HARIG CRANKSHAFTS LTD.">HARIG CRANKSHAFTS LTD.</td><td class="price">₹20.72</td><td class="price">₹54.21</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+161.63%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:100%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹50.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 20-Aug-2026">66d</td><td><span class="pos-trail-badge" title="3 box upgrades">🔥 3</span></td></tr><tr><td><span class="sym">508963</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="TRUSTWAVE SECURITIES LIMITED">TRUSTWAVE SECURITIES LIMITED</td><td class="price">₹120.75</td><td class="price">₹291.50</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+141.41%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:100%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹275.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 01-Sep-2026">54d</td><td><span class="pos-trail-badge" title="12 box upgrades">🔥 12</span></td></tr><tr><td><span class="sym">544907</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="Seksaria Finance Limited">Seksaria Finance Limited</td><td class="price">₹50.30</td><td class="price">₹94.76</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+88.39%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:88.39%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹90.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 01-Oct-2026">24d</td><td><span class="pos-trail-badge" title="4 box upgrades">🔥 4</span></td></tr><tr><td><span class="sym">DSKULKARNI</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="DS KULKARNI DEVELOPERS L">DS KULKARNI DEVELOPERS L</td><td class="price">₹20.19</td><td class="price">₹34.34</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+70.08%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:70.08%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹30.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 08-Sep-2026">47d</td><td><span class="pos-trail-badge" title="1 box upgrades">📦 1</span></td></tr><tr><td><span class="sym">511734</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="PASUPATI FINCAP LTD.">PASUPATI FINCAP LTD.</td><td class="price">₹20.61</td><td class="price">₹34.85</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+69.09%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:69.09%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹30.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 23-Sep-2026">32d</td><td><span class="pos-trail-badge" title="1 box upgrades">📦 1</span></td></tr><tr><td><span class="sym">504697</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="GALADA POWER & TELECOMMUNICATI">GALADA POWER & TELECOMMUNICATI</td><td class="price">₹20.02</td><td class="price">₹32.03</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+59.99%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:59.99%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹30.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 01-Sep-2026">54d</td><td><span class="pos-trail-badge" title="1 box upgrades">📦 1</span></td></tr><tr><td><span class="sym">540175</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="REGENCY FINCORP LIMITED">REGENCY FINCORP LIMITED</td><td class="price">₹41.65</td><td class="price">₹62.35</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+49.70%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:49.7%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹60.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 15-Jul-2026">102d</td><td><span class="pos-trail-badge" title="2 box upgrades">📦 2</span></td></tr><tr><td><span class="sym">530889</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="AUDROC Limited">AUDROC Limited</td><td class="price">₹20.13</td><td class="price">₹29.81</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+48.09%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:48.09%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹20.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 23-Sep-2026">32d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">522150</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="ADITYA FORGE LTD.">ADITYA FORGE LTD.</td><td class="price">₹51.08</td><td class="price">₹71.18</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+39.35%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:39.35%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹70.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 14-Oct-2026">11d</td><td><span class="pos-trail-badge" title="2 box upgrades">📦 2</span></td></tr><tr><td><span class="sym">513343</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="GRAND FOUNDRY LTD.">GRAND FOUNDRY LTD.</td><td class="price">₹30.24</td><td class="price">₹41.30</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+36.57%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:36.57%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹40.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 28-Sep-2026">27d</td><td><span class="pos-trail-badge" title="1 box upgrades">📦 1</span></td></tr><tr><td><span class="sym">531304</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="NUTECH GLOBAL LTD.">NUTECH GLOBAL LTD.</td><td class="price">₹30.64</td><td class="price">₹36.22</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+18.21%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:18.21%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹30.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 06-Oct-2026">19d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">531171</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="DHARTI PROTEINS LIMITED">DHARTI PROTEINS LIMITED</td><td class="price">₹81.32</td><td class="price">₹94.12</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+15.74%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:15.74%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹90.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 19-Oct-2026">6d</td><td><span class="pos-trail-badge" title="1 box upgrades">📦 1</span></td></tr><tr><td><span class="sym">504746</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="INDIAN LINK CHAIN MANUFACTURES">INDIAN LINK CHAIN MANUFACTURES</td><td class="price">₹205.55</td><td class="price">₹231.40</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+12.58%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:12.58%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹230.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 16-Oct-2026">9d</td><td><span class="pos-trail-badge" title="3 box upgrades">🔥 3</span></td></tr><tr><td><span class="sym">PASHUPATI</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="PASHUPATI COTSPIN LIMITED">PASHUPATI COTSPIN LIMITED</td><td class="price">₹94.17</td><td class="price">₹104.31</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+10.77%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:10.77%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹100.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 21-Oct-2026">4d</td><td><span class="pos-trail-badge" title="1 box upgrades">📦 1</span></td></tr><tr><td><span class="sym">544448</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="Pashupati Cotspin Limited">Pashupati Cotspin Limited</td><td class="price">₹94.23</td><td class="price">₹104.27</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+10.65%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:10.65%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹100.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 21-Oct-2026">4d</td><td><span class="pos-trail-badge" title="1 box upgrades">📦 1</span></td></tr><tr><td><span class="sym">517230</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="AURIQUE LIMITED">AURIQUE LIMITED</td><td class="price">₹70.24</td><td class="price">₹77.43</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+10.24%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:10.24%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹70.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 21-Oct-2026">4d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">MAHASTEEL</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="MAHAMAYA STEEL INDS LTD">MAHAMAYA STEEL INDS LTD</td><td class="price">₹1,355.20</td><td class="price">₹1,473.50</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+8.73%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:8.73%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹1,400.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 21-Oct-2026">4d</td><td><span class="pos-trail-badge" title="1 box upgrades">📦 1</span></td></tr><tr><td><span class="sym">513554</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="MAHAMAYA STEEL INDUSTRIES LTD.">MAHAMAYA STEEL INDUSTRIES LTD.</td><td class="price">₹1,356.00</td><td class="price">₹1,468.10</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+8.27%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:8.27%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹1,400.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 21-Oct-2026">4d</td><td><span class="pos-trail-badge" title="1 box upgrades">📦 1</span></td></tr><tr><td><span class="sym">544951</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="ARMEE INFOTECH LIMITED">ARMEE INFOTECH LIMITED</td><td class="price">₹257.05</td><td class="price">₹271.80</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+5.74%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:5.74%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹250.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 15-Oct-2026">10d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">ARMEE</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="ARMEE INFOTECH LIMITED">ARMEE INFOTECH LIMITED</td><td class="price">₹257.40</td><td class="price">₹271.85</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+5.61%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:5.61%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹250.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 15-Oct-2026">10d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">539230</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="Chemiesynth (Vapi) Limited">Chemiesynth (Vapi) Limited</td><td class="price">₹125.96</td><td class="price">₹132.25</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+4.99%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:4.99%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹130.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 21-Oct-2026">4d</td><td><span class="pos-trail-badge" title="1 box upgrades">📦 1</span></td></tr><tr><td><span class="sym">542694</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="Parshva Enterprises Limited">Parshva Enterprises Limited</td><td class="price">₹203.00</td><td class="price">₹210.05</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+3.47%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:3.47%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹210.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 16-Oct-2026">9d</td><td><span class="pos-trail-badge" title="1 box upgrades">📦 1</span></td></tr><tr><td><span class="sym">521244</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="MKP Mobility Limited">MKP Mobility Limited</td><td class="price">₹220.05</td><td class="price">₹224.00</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+1.80%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:1.8%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹220.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 22-Oct-2026">3d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">503659</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="SW INVESTMENTS LTD">SW INVESTMENTS LTD</td><td class="price">₹231.00</td><td class="price">₹235.00</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+1.73%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:1.73%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹230.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 21-Oct-2026">4d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">502355</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="BALKRISHNA INDUSTRIES LTD.">BALKRISHNA INDUSTRIES LTD.</td><td class="price">₹2,108.55</td><td class="price">₹2,110.05</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+0.07%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:0.07%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹2,100.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 22-Oct-2026">3d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">TCS</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="TATA CONSULTANCY SERV LT">TATA CONSULTANCY SERV LT</td><td class="price">₹2,529.00</td><td class="price">₹2,530.00</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+0.04%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:0.04%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹2,500.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 21-Oct-2026">4d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">532540</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="TATA CONSULTANCY SERVICES LTD.">TATA CONSULTANCY SERVICES LTD.</td><td class="price">₹2,527.00</td><td class="price">₹2,528.00</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+0.04%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:0.04%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹2,500.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 21-Oct-2026">4d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">530075</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="Antelopus Selan Energy Limited">Antelopus Selan Energy Limited</td><td class="price">₹1,136.45</td><td class="price">₹1,136.45</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+0.00%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:0.0%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹1,100.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 23-Oct-2026">2d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">ANTELOPUS</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="ANTELOPUS SELAN ENRGY LTD">ANTELOPUS SELAN ENRGY LTD</td><td class="price">₹1,136.40</td><td class="price">₹1,136.40</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+0.00%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:0.0%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹1,100.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 23-Oct-2026">2d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">544311</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="International Gemological Inst">International Gemological Inst</td><td class="price">₹382.30</td><td class="price">₹382.30</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+0.00%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:0.0%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹375.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 23-Oct-2026">2d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">IGIL</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="INTL GEMOLOGICAL INST LTD">INTL GEMOLOGICAL INST LTD</td><td class="price">₹381.15</td><td class="price">₹381.15</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+0.00%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:0.0%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹375.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 23-Oct-2026">2d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">544253</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="Kross Limited">Kross Limited</td><td class="price">₹306.65</td><td class="price">₹306.65</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+0.00%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:0.0%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹300.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 23-Oct-2026">2d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">KROSS</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="KROSS LIMITED">KROSS LIMITED</td><td class="price">₹306.55</td><td class="price">₹306.55</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+0.00%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:0.0%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹300.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 23-Oct-2026">2d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">KOLTEPATIL</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="KOLTE PATIL DEV. LTD.">KOLTE PATIL DEV. LTD.</td><td class="price">₹458.30</td><td class="price">₹458.30</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+0.00%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:0.0%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹450.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 23-Oct-2026">2d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">532924</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="KOLTE-PATIL DEVELOPERS LTD.">KOLTE-PATIL DEVELOPERS LTD.</td><td class="price">₹458.00</td><td class="price">₹458.00</td><td><div class="pos-pnl-wrap"><span class="pnl-positive" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">+0.00%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:0.0%;background:var(--success)"></div></div></div></td><td class="price" style="color:var(--danger)">₹450.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 23-Oct-2026">2d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">500360</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="RAPICUT CARBIDES LTD.">RAPICUT CARBIDES LTD.</td><td class="price">₹301.90</td><td class="price">₹301.00</td><td><div class="pos-pnl-wrap"><span class="pnl-negative" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">-0.30%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:0.3%;background:var(--danger)"></div></div></div></td><td class="price" style="color:var(--danger)">₹300.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 16-Oct-2026">9d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">CRISIL</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="CRISIL LTD">CRISIL LTD</td><td class="price">₹4,777.20</td><td class="price">₹4,751.10</td><td><div class="pos-pnl-wrap"><span class="pnl-negative" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">-0.55%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:0.55%;background:var(--danger)"></div></div></div></td><td class="price" style="color:var(--danger)">₹4,750.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 22-Oct-2026">3d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">530125</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="SAMRAT PHARMACHEM LTD.">SAMRAT PHARMACHEM LTD.</td><td class="price">₹288.10</td><td class="price">₹277.50</td><td><div class="pos-pnl-wrap"><span class="pnl-negative" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">-3.68%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:3.68%;background:var(--danger)"></div></div></div></td><td class="price" style="color:var(--danger)">₹275.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 22-Oct-2026">3d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">REPL</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="RUDRABHISHEK ENTERP LTD">RUDRABHISHEK ENTERP LTD</td><td class="price">₹77.68</td><td class="price">₹72.41</td><td><div class="pos-pnl-wrap"><span class="pnl-negative" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">-6.78%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:6.78%;background:var(--danger)"></div></div></div></td><td class="price" style="color:var(--danger)">₹70.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 22-Oct-2026">3d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">539120</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="GRAMEVA LIMITED">GRAMEVA LIMITED</td><td class="price">₹87.43</td><td class="price">₹81.13</td><td><div class="pos-pnl-wrap"><span class="pnl-negative" style="font-weight:800;font-family:JetBrains Mono,monospace;font-size:12px">-7.21%</span><div class="pos-pnl-bar"><div class="pos-pnl-fill" style="width:7.21%;background:var(--danger)"></div></div></div></td><td class="price" style="color:var(--danger)">₹80.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 19-Oct-2026">6d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">531685</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="FRONTLINE FINANCIAL SERVICES L">FRONTLINE FINANCIAL SERVICES L</td><td class="price">₹20.12</td><td class="price" style="color:var(--text-muted)" title="Aaj ke BhavCopy mein yeh stock nahi hai">—</td><td><span class="pos-nodata-badge" title="Aaj ke BhavCopy mein yeh stock nahi hai">No data</span></td><td class="price" style="color:var(--danger)">₹20.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 24-Jun-2026">123d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">531980</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="SENTHIL INFOTEK LTD">SENTHIL INFOTEK LTD</td><td class="price">₹41.97</td><td class="price" style="color:var(--text-muted)" title="Aaj ke BhavCopy mein yeh stock nahi hai">—</td><td><span class="pos-nodata-badge" title="Aaj ke BhavCopy mein yeh stock nahi hai">No data</span></td><td class="price" style="color:var(--danger)">₹40.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 10-Aug-2026">76d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr><tr><td><span class="sym">GFSTEELS</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="GRAND FOUNDRY LTD">GRAND FOUNDRY LTD</td><td class="price">₹30.91</td><td class="price" style="color:var(--text-muted)" title="Aaj ke BhavCopy mein yeh stock nahi hai">—</td><td><span class="pos-nodata-badge" title="Aaj ke BhavCopy mein yeh stock nahi hai">No data</span></td><td class="price" style="color:var(--danger)">₹40.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 24-Sep-2026">31d</td><td><span class="pos-trail-badge" title="1 box upgrades">📦 1</span></td></tr><tr><td><span class="sym">539200</span></td><td style="font-weight:500;max-width:160px;overflow:hidden;text-overflow:ellipsis" title="NOBLE POLYMERS LIMITED">NOBLE POLYMERS LIMITED</td><td class="price">₹20.18</td><td class="price" style="color:var(--text-muted)" title="Aaj ke BhavCopy mein yeh stock nahi hai">—</td><td><span class="pos-nodata-badge" title="Aaj ke BhavCopy mein yeh stock nahi hai">No data</span></td><td class="price" style="color:var(--danger)">₹20.00</td><td style="font-weight:700;color:var(--text-secondary)" title="Entry: 13-Oct-2026">12d</td><td><span class="pos-trail-badge" title="0 box upgrades">📦 0</span></td></tr></tbody>
             </table>
@@ -707,10 +772,11 @@
         </div>
 
         <!-- EXCHANGE BREAKDOWN -->
-        <div class="dash-section-title">🏛️ Exchange Performance</div>
+        <div class="dash-section-title">🏛️ Exchange Performance <small>Bar = win rate</small></div>
         <div class="dash-exch">
             <div class="dash-exch-card">
-                <div class="dash-exch-name" style="color:var(--accent)">📊 NSE (National Stock Exchange)</div>
+                <div class="dash-exch-head"><span class="dash-exch-name" style="color:var(--accent)">NSE</span><span class="dash-exch-full">National Stock Exchange</span></div>
+                <div class="exch-bar" title="Win rate 29.8%"><div style="width:29.8%"></div></div>
                 <div class="dash-exch-row"><span class="dash-exch-label">Total Trades</span><span class="dash-exch-val">523</span></div>
                 <div class="dash-exch-row"><span class="dash-exch-label">Wins</span><span class="dash-exch-val" style="color:var(--success)">156</span></div>
                 <div class="dash-exch-row"><span class="dash-exch-label">Win Rate</span><span class="dash-exch-val">29.8%</span></div>
@@ -718,7 +784,8 @@
                 <div class="dash-exch-row"><span class="dash-exch-label">Cumulative</span><span class="dash-exch-val" style="color:var(--success)">+954.95%</span></div>
             </div>
             <div class="dash-exch-card">
-                <div class="dash-exch-name" style="color:var(--warning)">📊 BSE (Bombay Stock Exchange)</div>
+                <div class="dash-exch-head"><span class="dash-exch-name" style="color:var(--warning)">BSE</span><span class="dash-exch-full">Bombay Stock Exchange</span></div>
+                <div class="exch-bar" title="Win rate 36.1%"><div style="width:36.1%"></div></div>
                 <div class="dash-exch-row"><span class="dash-exch-label">Total Trades</span><span class="dash-exch-val">707</span></div>
                 <div class="dash-exch-row"><span class="dash-exch-label">Wins</span><span class="dash-exch-val" style="color:var(--success)">255</span></div>
                 <div class="dash-exch-row"><span class="dash-exch-label">Win Rate</span><span class="dash-exch-val">36.1%</span></div>
@@ -1321,7 +1388,7 @@ function animateDashboard() {
 
 // ── SCROLL REVEAL (IntersectionObserver) ──
 function initScrollReveal() {
-    const sections = document.querySelectorAll('.dash-grid, .dash-compare, .dash-streaks, .dash-dist, .pos-summary-grid, .pos-best-worst, .dash-exch, .dash-tables');
+    const sections = document.querySelectorAll('.dash-grid, .dash-highlights, .dash-dist, .pos-summary-grid, .pos-best-worst, .dash-exch, .dash-tables');
     sections.forEach(s => {
         s.style.opacity = '0';
         s.style.transform = 'translateY(20px)';
